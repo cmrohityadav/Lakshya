@@ -1,13 +1,14 @@
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Image } from 'react-native'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import CustomHeader from '@/components/CustomHeader'
 import AddButton from '@/components/AddButton'
-
+import { width as screenWidth,height  as screenHeight} from '@/utils/constant'
 const Home = () => {
 
-    const data=useSelector((state)=>state.todo.data)
+    // const data=useSelector((state)=>state.todo.data)
     console.log(data)
+    const data=[]
 
     const renderItem=({item})=>{
 
@@ -24,7 +25,17 @@ const Home = () => {
       <FlatList
 
         data={data}
-        ListEmptyComponent={<View></View>}
+        ListEmptyComponent={<View style={styles.listEmpty}>
+        <View style={styles.listEmptyImageContainer}>
+            <Image 
+            style={styles.listEmptyImage}
+              source={require('./../assets/images/add.png')}
+            />
+        </View>
+          <Text  style={styles.listEmptyText}>
+            Click on Below Plus button to add your Lakshya
+          </Text>
+        </View>}
         initialNumToRender={10}
         windowSize={10}
         key={(items)=>items?.id}
@@ -45,7 +56,26 @@ const styles = StyleSheet.create({
     flex:1,
     backGroundColor:"white"
     
+  },
+  listEmpty:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+    marginVertical:20,
+  },
+  listEmptyImage:{
+    width:screenWidth*.8,
+    height:screenHeight*.4,
+    margin:10,
+    resizeMode:"contain"
+  },
+  listEmptyText:{
+    textAlign:'center',
+    marginTop:30,
+    fontSize:15
+
   }
+
 })
 
 export default Home
