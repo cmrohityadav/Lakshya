@@ -4,21 +4,14 @@ import { useSelector } from 'react-redux'
 import CustomHeader from '@/components/CustomHeader'
 import AddButton from '@/components/AddButton'
 import { width as screenWidth,height  as screenHeight} from '@/utils/constant'
+import TodoItem from '@/components/TodoItem'
 const Home = () => {
 
-    // const data=useSelector((state)=>state.todo.data)
-    console.log(data)
-    const data=[]
+     const data=useSelector((state)=>state.todo.data)
+    // console.log(data)
+   // const data=[]
 
-    const renderItem=({item})=>{
-
-        return(
-            <View>
-                <Text>{item?.sTitle}</Text>
-                <Text>{item?.sDiscription}</Text>
-            </View>
-        )
-    }
+    
   return (
     <View style={styles.container}>
       <CustomHeader title='LAKSHYA'/>
@@ -36,13 +29,19 @@ const Home = () => {
             Click on Below Plus button to add your Lakshya
           </Text>
         </View>}
-        initialNumToRender={10}
-        windowSize={10}
-        key={(items)=>items?.id}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(items)=>items?.id}
 
-        renderItem={renderItem}
+
+        initialNumToRender={10}
+
+        windowSize={10}
+
+        key={(item)=>item?.id}
+
+        showsVerticalScrollIndicator={false}
+
+        keyExtractor={(item)=>item?.id}
+
+        renderItem={({item})=>(<TodoItem data={item} key={item.id}/>)}
       />
       <AddButton/>
 
